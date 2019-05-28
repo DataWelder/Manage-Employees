@@ -22,21 +22,22 @@ namespace Manage_Employees
                 Amount = amount;
             }
 
-            public string PrintOperationInfo()
+            public string GetOperationInfo()
             {
                switch (Type)
                 {
                     case OperationTypes.Add:
-                        return 
-                        break;
+                        return "Employee was created";
+                        
                     case OperationTypes.Edit:
-                        break;
+                        return "Employee was edited";
+                        
                     case OperationTypes.ChangeWage:
-                        return "Wage value changed to:  "
-                        break;
+                        return "Wage value changed to:  " + Amount + "$";
+                        
                     default:
                         return "Invalid Type of Operation";
-                        break;
+                        
                 }
             }
         }
