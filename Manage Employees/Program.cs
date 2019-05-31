@@ -17,6 +17,8 @@ namespace Manage_Employees
 
         static void Main(string[] args)
         {
+            EmployeesList.CreateEmployeeAndAdd("Tadeusz", "Testowy", "testowy.tadek@tester.com", "tester");
+            EmployeesList.CreateEmployeeAndAdd("Janusz", "Handlarz", "janusz@najlepsze-bmw.com.pl", "najlepszy handlarz");
             MainMenu();
         }
 
@@ -50,10 +52,11 @@ namespace Manage_Employees
                             }
                             break;
                         case ConsoleKey.E:
+                            Session.Status = Session.ProgramStatus.List;
                             EmployeesList.PrintEmployees();
-                            Messages.ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
-                            Console.ReadKey();
-                            MainMenu();
+                            Messages.ListMessages();
+                            Session.ReadOption();
+                            Analyze();
                             break;
                         case ConsoleKey.Escape:
                             Messages.ColorPrintLine("Thanks for using Application written by Sebastian Szypulski vel Sisa 2019", ConsoleColor.DarkCyan);
@@ -74,6 +77,20 @@ namespace Manage_Employees
                             break;
                         default:
                             MainMenu();
+                            break;
+                    }
+                    break;
+                case Session.ProgramStatus.List:
+                    switch (option)
+                    {
+                        case ConsoleKey.S:
+
+                            break;
+                        case ConsoleKey.Escape;
+                            MainMenu();
+                            break;
+                        default:
+                            EmployeesList.PrintEmployees();
                             break;
                     }
                     break;

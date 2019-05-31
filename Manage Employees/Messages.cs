@@ -84,7 +84,7 @@ namespace Manage_Employees
             switch (Session.UserOption.Key)
             {
                 case ConsoleKey.Enter:
-                    if(Program.EmployeesList.CreateEmployee(name, surname, email, position))
+                    if(Program.EmployeesList.CreateEmployeeAndAdd(name, surname, email, position))
                     {
                         Messages.ColorPrintLine("Successfull Saved", ConsoleColor.Green);
                         Messages.ColorPrintLine("Press any key to back main menu... or press N do add next Employee", ConsoleColor.DarkYellow);
@@ -98,9 +98,9 @@ namespace Manage_Employees
                     {
                         Messages.ColorPrintLine("Save Failed", ConsoleColor.Green);
                         Messages.ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
+                        Console.ReadKey();
                     }
                     
-                    Console.ReadKey();
                     Program.MainMenu();
                     break;
                 case ConsoleKey.Escape:
@@ -114,6 +114,24 @@ namespace Manage_Employees
             }
 
 
+        }
+
+        public static void ListMessages()
+        {
+            ColorPrintLine("S) Search by Name and Surname", ConsoleColor.Yellow);
+            ColorPrintLine("ESC) Main Menu", ConsoleColor.Red);
+        }
+
+        public static void SearchForm()
+        {
+            string name, surname;
+            ColorPrint("Name: ", ConsoleColor.Cyan);
+            name = Console.ReadLine();
+            ColorPrint("Surname: ", ConsoleColor.Cyan);
+            surname = Console.ReadLine();
+            Employee searchedEmployee = Program.EmployeesList[name, surname];
+            ColorPrint("Found employee", ConsoleColor.DarkGray);
+            searchedEmployee.PrintEmployeeData();
         }
     }
 }

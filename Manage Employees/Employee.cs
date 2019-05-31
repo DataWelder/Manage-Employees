@@ -24,18 +24,25 @@ namespace Manage_Employees
                 Id = id;
             }
 
-            public string GetEmployeeData()
+            public void PrintEmployeeData()
             {
-                string Data;
                 if (Session.IsLogged())
                 {
-                    Data = Id + ") " + Name + " " + Surname + "\n" + Position + "\n" + WorkEmail;
-                    return Data;
+                    Messages.ColorPrintLine(GetFullName(), ConsoleColor.DarkCyan);
+                    Messages.ColorPrintLine("Employee ID:" + Convert.ToString(Id), ConsoleColor.DarkYellow);
+                    Messages.ColorPrint("Position: ", ConsoleColor.DarkMagenta);
+                    Messages.ColorPrintLine(Position, ConsoleColor.DarkYellow);
+                    Messages.ColorPrint("Email: ", ConsoleColor.DarkMagenta);
+                    Messages.ColorPrintLine(WorkEmail, ConsoleColor.DarkYellow);
+
                 }
                 else
-                {
-                    Data = Id + ") " + Name + " " + Surname + "\n" + Position + "\n" + WorkEmail;
-                    return Data;
+                { 
+                    Messages.ColorPrintLine(GetFullName(), ConsoleColor.DarkCyan);
+                    Messages.ColorPrint("Position: ", ConsoleColor.DarkMagenta);
+                    Messages.ColorPrintLine(Position, ConsoleColor.DarkYellow);
+                    Messages.ColorPrint("Email: ", ConsoleColor.DarkMagenta);
+                    Messages.ColorPrintLine(WorkEmail, ConsoleColor.DarkYellow);
                 }
             }
 
