@@ -29,12 +29,12 @@ namespace Manage_Employees
             {
                 ColorPrintLine("You are login as: " + account, ConsoleColor.DarkYellow);
                 ColorPrintLine("L) Logout", ConsoleColor.Green);
+                ColorPrintLine("A) Add Employee", ConsoleColor.Green);
             }
             else
             {
                 ColorPrintLine("L) Login to system", ConsoleColor.Green);
             }
-            ColorPrintLine("Z) Add Employee", ConsoleColor.Green);
             ColorPrintLine("E) Display Employee list", ConsoleColor.Green);
             ColorPrintLine("ESC) Exit", ConsoleColor.Red);
         }

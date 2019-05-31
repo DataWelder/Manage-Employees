@@ -58,18 +58,20 @@ namespace Manage_Employees
             }
         }
 
-        static void AddClientForm()
+        static void AddEmployeeForm()
         {
-            string name, surname, email;
+            string name, surname, email, position;
             Messages.ColorPrintLine("Add Employee", ConsoleColor.Yellow);
             Messages.ColorPrint("Name: ", ConsoleColor.Cyan);
             name = Console.ReadLine();
             Messages.ColorPrint("Surname: ", ConsoleColor.Cyan);
             surname = Console.ReadLine();
-            Messages.ColorPrint(" Work E-mail: ", ConsoleColor.Cyan);
+            Messages.ColorPrint("Position: ", ConsoleColor.Cyan);
+            position = Console.ReadLine();
+            Messages.ColorPrint("Work E-mail: ", ConsoleColor.Cyan);
             email = Console.ReadLine();
 
-            Client tempClient = new Client(name, surname, email); 
+            Employee tempEmployee = new Employee(name, surname, email, position); 
             
             Messages.ColorPrint("ESC) Cancel ", ConsoleColor.Red);
             Messages.ColorPrint("Enter) Save \n", ConsoleColor.Green);
@@ -78,7 +80,7 @@ namespace Manage_Employees
             {
                 case ConsoleKey.Enter:
                     Messages.ColorPrintLine("Successfull Saved", ConsoleColor.Green);
-                    Messages.ColorPrintLine(tempClient.GetClientData(), ConsoleColor.DarkYellow);
+                    Messages.ColorPrintLine(tempEmployee.GetEmployeeData(session.IsLogged()), ConsoleColor.DarkYellow);
                     Messages.ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
                     Console.ReadKey();
                     MainMenu();
@@ -89,7 +91,7 @@ namespace Manage_Employees
                 default:
                     Console.Clear();
                     Messages.ColorPrintLine("Invalid key - reset add form", ConsoleColor.Red);
-                    AddClientForm();
+                    AddEmployeeForm();
                     break;
             }
             
@@ -104,9 +106,9 @@ namespace Manage_Employees
                 case ProgramStatus.MainMenu:
                     switch (UserOption.Key)
                     {
-                        case ConsoleKey.Q:
+                        case ConsoleKey.A:
                             Status = ProgramStatus.ClientForm;
-                            AddClientForm();
+                            AddEmployeeForm();
                             break;
                         case ConsoleKey.Escape:
                             Messages.ColorPrintLine("Thanks for using Application written by Sebastian Szypulski vel Sisa 2019", ConsoleColor.DarkCyan);
