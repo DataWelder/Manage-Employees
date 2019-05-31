@@ -13,6 +13,21 @@ namespace Manage_Employees
             public List<Employee> EmployeesList { get; set; } = new List<Employee>();
             private int Id = 1;
 
+            public Employee this[string name, string surname]
+            {
+                get
+                {
+                    foreach (Employee employee in EmployeesList)
+                    {
+                        if(employee.Name == name && employee.Surname == surname)
+                        {
+                            return employee;
+                        }
+                    }
+                    return null;
+                }
+            }
+
             public bool CreateEmployee (string name, string surname, string workEmail, string position)
             {
                 Employee Employee = Employee.CreateEmployee(Id, name, surname, workEmail, position);
