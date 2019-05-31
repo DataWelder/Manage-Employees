@@ -21,6 +21,21 @@ namespace Manage_Employees
                 WorkEmail = workEmail;
                 Position = position;
             }
+
+            public string GetEmployeeData(bool isLogin)
+            {
+                string Data;
+                if (isLogin)
+                {
+                    Data = Name + " " + Surname + "\n" + Position + "\n" + WorkEmail;
+                    return Data;
+                }
+                else
+                {
+                    Data = Name + " " + Surname + "\n" + Position + "\n" + WorkEmail;
+                    return Data;
+                }
+            }
         }
 
     }
