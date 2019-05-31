@@ -28,7 +28,7 @@ namespace Manage_Employees
                 }
             }
 
-            public bool CreateEmployee (string name, string surname, string workEmail, string position)
+            public bool CreateEmployeeAndAdd (string name, string surname, string workEmail, string position)
             {
                 Employee Employee = Employee.CreateEmployee(Id, name, surname, workEmail, position);
                 EmployeesList.Add(Employee);
@@ -44,7 +44,7 @@ namespace Manage_Employees
                 }
                 foreach (Employee Employee in EmployeesList)
                 {
-                    Messages.ColorPrintLine(Employee.GetEmployeeData(),ConsoleColor.DarkCyan);
+                    Employee.PrintEmployeeData();
                 }
             }
         }

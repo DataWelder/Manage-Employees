@@ -12,7 +12,7 @@ namespace Manage_Employees
         private static string Login = "admin";
         private static string Password = "admin";
         public static ConsoleKeyInfo UserOption;
-        public enum ProgramStatus { MainMenu, Form, List };
+        public enum ProgramStatus { MainMenu, Form, List, Search };
         public static ProgramStatus Status = ProgramStatus.MainMenu;
 
         public static string LoginAs()
