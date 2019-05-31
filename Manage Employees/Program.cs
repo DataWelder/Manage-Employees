@@ -52,9 +52,7 @@ namespace Manage_Employees
                             }
                             break;
                         case ConsoleKey.E:
-                            Session.Status = Session.ProgramStatus.List;
-                            EmployeesList.PrintEmployees();
-                            Messages.ListMessages();
+                            Messages.PrintEmployeesList();
                             Session.ReadOption();
                             Analyze();
                             break;
@@ -84,13 +82,28 @@ namespace Manage_Employees
                     switch (option)
                     {
                         case ConsoleKey.S:
+                            Messages.SearchForm();
+                            break;
+                        case ConsoleKey.Escape:
+                            MainMenu();
+                            break;
+                        default:
+                            Messages.PrintEmployeesList();
+                            break;
+                    }
+                    break;
+                case Session.ProgramStatus.Search:
+                    switch (option)
+                    {
+                        case ConsoleKey.S:
 
                             break;
-                        case ConsoleKey.Escape;
+                        case ConsoleKey.Escape:
                             MainMenu();
                             break;
                         default:
                             EmployeesList.PrintEmployees();
+                            
                             break;
                     }
                     break;

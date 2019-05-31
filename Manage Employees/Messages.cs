@@ -66,6 +66,7 @@ namespace Manage_Employees
 
         public static void AddEmployeeForm()
         {
+            Session.Status = Session.ProgramStatus.Form;
             Console.Clear();
             string name, surname, email, position;
             Messages.ColorPrintLine("Add Employee", ConsoleColor.Yellow);
@@ -116,14 +117,21 @@ namespace Manage_Employees
 
         }
 
-        public static void ListMessages()
+        public static void PrintEmployeesList()
         {
+            Session.Status = Session.ProgramStatus.List;
+            Program.EmployeesList.PrintEmployees();
             ColorPrintLine("S) Search by Name and Surname", ConsoleColor.Yellow);
+            if (Session.IsLogged())
+            {
+                ColorPrintLine("I) Search by ID", ConsoleColor.Yellow);
+            }
             ColorPrintLine("ESC) Main Menu", ConsoleColor.Red);
         }
 
         public static void SearchForm()
         {
+            Session.Status = Session.ProgramStatus.Search;
             string name, surname;
             ColorPrint("Name: ", ConsoleColor.Cyan);
             name = Console.ReadLine();
@@ -132,6 +140,8 @@ namespace Manage_Employees
             Employee searchedEmployee = Program.EmployeesList[name, surname];
             ColorPrint("Found employee", ConsoleColor.DarkGray);
             searchedEmployee.PrintEmployeeData();
+            Session.ReadOption();
+            Program.MainMenu();
         }
     }
 }
