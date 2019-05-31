@@ -12,6 +12,10 @@ namespace Manage_Employees
         private string Login = "admin";
         private string Password = "admin";
 
+        public string LoginAs()
+        {
+            return Login;
+        }
         public bool IsLogged()
         {
             return IsLogin;
@@ -19,7 +23,7 @@ namespace Manage_Employees
 
         public bool Loggin(string login, string password)
         {
-            if(login == Login && password == Password)
+            if (login == Login && password == Password)
             {
                 IsLogin = true;
                 return true;

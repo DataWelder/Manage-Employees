@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Manage_Employees.Clients;
 using Manage_Employees.Emploees;
+using Manage_Employees;
 
 namespace Manage_Employees
 { 
@@ -14,11 +15,11 @@ namespace Manage_Employees
         public static ConsoleKeyInfo UserOption;
         public enum ProgramStatus { MainMenu, ClientForm, EmployeeForm, List };
         public static ProgramStatus Status = ProgramStatus.MainMenu;
-        
+        public static Session session = new Session();
+
 
         static void Main(string[] args)
         {
-
             MainMenu();
         }
 
@@ -26,20 +27,46 @@ namespace Manage_Employees
         {
             Status = ProgramStatus.MainMenu;
             Console.Clear();
-            Messages.DisplayMainMenu();
+            Messages.DisplayMainMenu(session.IsLogged(), session.LoginAs());
             UserOption = Console.ReadKey();
             Analyze();
+        }
+
+        static void LoginForm()
+        {
+            string login, password;
+            Messages.ColorPrint("Login: ", ConsoleColor.Red);
+            login = Console.ReadLine();
+            Messages.ColorPrint("Password: ", ConsoleColor.Red);
+            password = Console.ReadLine();
+            Console.Clear();
+            Messages.ColorPrintLine("Login: " + login, ConsoleColor.Red);
+            Messages.ColorPrintLine("Password: ****", ConsoleColor.Red);
+            if(session.Loggin(login, password))
+            {
+                Messages.ColorPrintLine("You're loged now", ConsoleColor.Green);
+                Messages.ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
+                Console.ReadKey();
+                MainMenu();
+            }
+            else
+            {
+                Messages.ColorPrintLine("Login failed", ConsoleColor.DarkRed);
+                Messages.ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
+                Console.ReadKey();
+                MainMenu();
+            }
         }
 
         static void AddClientForm()
         {
             string name, surname, email;
-            Messages.ColorPrintLine("Add Client", ConsoleColor.Yellow);
+            Messages.ColorPrintLine("Add Employee", ConsoleColor.Yellow);
             Messages.ColorPrint("Name: ", ConsoleColor.Cyan);
             name = Console.ReadLine();
             Messages.ColorPrint("Surname: ", ConsoleColor.Cyan);
             surname = Console.ReadLine();
-            Messages.ColorPrint("E-mail: ", ConsoleColor.Cyan);
+            Messages.ColorPrint(" Work E-mail: ", ConsoleColor.Cyan);
             email = Console.ReadLine();
 
             Client tempClient = new Client(name, surname, email); 
@@ -85,6 +112,17 @@ namespace Manage_Employees
                             Messages.ColorPrintLine("Thanks for using Application written by Sebastian Szypulski vel Sisa 2019", ConsoleColor.DarkCyan);
                             Thread.Sleep(2000);
                             System.Environment.Exit(1);
+                            break;
+                        case ConsoleKey.L:
+                            if (session.IsLogged())
+                            {
+                                session.Logout();
+                                MainMenu();
+                            }
+                            else
+                            {
+                                LoginForm();
+                            }
                             break;
                         default:
                             Messages.ColorPrintLine("Invalid User choice... restarting application", ConsoleColor.Red);

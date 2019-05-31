@@ -22,14 +22,20 @@ namespace Manage_Employees
             Console.ResetColor();
         }
 
-        public static void DisplayMainMenu()
+        public static void DisplayMainMenu(bool isLogin, string account)
         {
             ColorPrintLine("Employee Manager", ConsoleColor.White);
-            ColorPrintLine("L) Login to system", ConsoleColor.Green);
-            ColorPrintLine("Q) Add Client", ConsoleColor.Green);
+            if (isLogin)
+            {
+                ColorPrintLine("You are login as: " + account, ConsoleColor.DarkYellow);
+                ColorPrintLine("L) Logout", ConsoleColor.Green);
+            }
+            else
+            {
+                ColorPrintLine("L) Login to system", ConsoleColor.Green);
+            }
             ColorPrintLine("Z) Add Employee", ConsoleColor.Green);
             ColorPrintLine("E) Display Employee list", ConsoleColor.Green);
-            ColorPrintLine("C) Display Client list", ConsoleColor.Green);
             ColorPrintLine("ESC) Exit", ConsoleColor.Red);
         }
         
