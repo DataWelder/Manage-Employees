@@ -15,6 +15,11 @@ namespace Manage_Employees
         public enum ProgramStatus { MainMenu, Form, List, Search };
         public static ProgramStatus Status = ProgramStatus.MainMenu;
 
+        public static void ChangeStatus(ProgramStatus status)
+        {
+            Status = status;
+        }
+
         public static string LoginAs()
         {
             return Login;
@@ -37,6 +42,12 @@ namespace Manage_Employees
                 return false;
             }
         }
+
+        public static void PrintProgramStatus()
+        {
+            Messages.ColorPrintLine("You are in: ", ConsoleColor.DarkBlue);
+        }
+
         public static void Logout()
         {
             IsLogin = false;

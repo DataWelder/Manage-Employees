@@ -13,6 +13,7 @@ namespace Manage_Employees
             public List<Employee> EmployeesList { get; set; } = new List<Employee>();
             private int Id = 1;
 
+
             public Employee this[string name, string surname]
             {
                 get
@@ -32,8 +33,16 @@ namespace Manage_Employees
             {
                 Employee Employee = Employee.CreateEmployee(Id, name, surname, workEmail, position);
                 EmployeesList.Add(Employee);
+                
+
                 Id++;
+                
                 return true;
+            }
+
+            private void Employee_CreateInfo(string message, ConsoleColor color)
+            {
+                throw new NotImplementedException();
             }
 
             public void PrintEmployees()

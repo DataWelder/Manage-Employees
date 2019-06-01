@@ -24,8 +24,10 @@ namespace Manage_Employees
             Console.ResetColor();
         }
 
-        public static void DisplayMainMenu()
+        public static void MainMenu()
         {
+            Console.Clear();
+            Session.ChangeStatus(Session.ProgramStatus.MainMenu);
             ColorPrintLine("Employee Manager", ConsoleColor.White);
             if (Session.IsLogged())
             {
@@ -39,6 +41,8 @@ namespace Manage_Employees
             }
             ColorPrintLine("E) Display Employee list", ConsoleColor.Green);
             ColorPrintLine("ESC) Exit", ConsoleColor.Red);
+            Session.UserOption = Console.ReadKey();
+            Program.Router();
         }
 
         public static void LoginForm()
@@ -54,6 +58,7 @@ namespace Manage_Employees
             if (Session.Loggin(login, password))
             {
                 ColorPrintLine("You're loged now", ConsoleColor.Green);
+                Console.Beep();
             }
             else
             {
@@ -61,34 +66,33 @@ namespace Manage_Employees
             }
             Thread.Sleep(1500);
             Session.Status = Session.ProgramStatus.MainMenu;
-            Program.MainMenu();
+            MainMenu();
         }
 
         public static void AddEmployeeForm()
         {
-            Session.Status = Session.ProgramStatus.Form;
+            Session.ChangeStatus(Session.ProgramStatus.Form);
             Console.Clear();
             string name, surname, email, position;
-            Messages.ColorPrintLine("Add Employee", ConsoleColor.Yellow);
-            Messages.ColorPrint("Name: ", ConsoleColor.Cyan);
+            ColorPrintLine("Add Employee", ConsoleColor.Yellow);
+            ColorPrint("Name: ", ConsoleColor.Cyan);
             name = Console.ReadLine();
-            Messages.ColorPrint("Surname: ", ConsoleColor.Cyan);
+            ColorPrint("Surname: ", ConsoleColor.Cyan);
             surname = Console.ReadLine();
-            Messages.ColorPrint("Position: ", ConsoleColor.Cyan);
+            ColorPrint("Position: ", ConsoleColor.Cyan);
             position = Console.ReadLine();
-            Messages.ColorPrint("Work E-mail: ", ConsoleColor.Cyan);
+            ColorPrint("Work E-mail: ", ConsoleColor.Cyan);
             email = Console.ReadLine();
 
-            Messages.ColorPrint("ESC) Cancel ", ConsoleColor.Red);
-            Messages.ColorPrint("Enter) Save \n", ConsoleColor.Green);
+            ColorPrint("ESC) Cancel ", ConsoleColor.Red);
+            ColorPrint("Enter) Save \n", ConsoleColor.Green);
             Session.ReadOption();
             switch (Session.UserOption.Key)
             {
                 case ConsoleKey.Enter:
                     if(Program.EmployeesList.CreateEmployeeAndAdd(name, surname, email, position))
                     {
-                        Messages.ColorPrintLine("Successfull Saved", ConsoleColor.Green);
-                        Messages.ColorPrintLine("Press any key to back main menu... or press N do add next Employee", ConsoleColor.DarkYellow);
+                        ColorPrintLine("Press any key to back main menu... or press N do add next Employee", ConsoleColor.DarkYellow);
                         Session.ReadOption();
                         if (Session.UserOption.Key == ConsoleKey.N)
                         {
@@ -97,19 +101,18 @@ namespace Manage_Employees
                     }
                     else
                     {
-                        Messages.ColorPrintLine("Save Failed", ConsoleColor.Green);
-                        Messages.ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
+                        ColorPrintLine("Created Failed", ConsoleColor.Green);
+                        ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
                         Console.ReadKey();
                     }
-                    
-                    Program.MainMenu();
+                    MainMenu();
                     break;
                 case ConsoleKey.Escape:
-                    Program.MainMenu();
+                    MainMenu();
                     break;
                 default:
                     Console.Clear();
-                    Messages.ColorPrintLine("Invalid key - reset form", ConsoleColor.Red);
+                    ColorPrintLine("Invalid key - reset form", ConsoleColor.Red);
                     AddEmployeeForm();
                     break;
             }
@@ -119,29 +122,39 @@ namespace Manage_Employees
 
         public static void PrintEmployeesList()
         {
-            Session.Status = Session.ProgramStatus.List;
+            Console.Clear();
+            Session.ChangeStatus(Session.ProgramStatus.List);
             Program.EmployeesList.PrintEmployees();
             ColorPrintLine("S) Search by Name and Surname", ConsoleColor.Yellow);
             if (Session.IsLogged())
             {
-                ColorPrintLine("I) Search by ID", ConsoleColor.Yellow);
+                
             }
             ColorPrintLine("ESC) Main Menu", ConsoleColor.Red);
+            Session.ReadOption();
+            Program.Router();
         }
 
         public static void SearchForm()
         {
-            Session.Status = Session.ProgramStatus.Search;
+            Session.ChangeStatus(Session.ProgramStatus.Search);
             string name, surname;
             ColorPrint("Name: ", ConsoleColor.Cyan);
             name = Console.ReadLine();
             ColorPrint("Surname: ", ConsoleColor.Cyan);
             surname = Console.ReadLine();
             Employee searchedEmployee = Program.EmployeesList[name, surname];
-            ColorPrint("Found employee", ConsoleColor.DarkGray);
-            searchedEmployee.PrintEmployeeData();
-            Session.ReadOption();
-            Program.MainMenu();
+            if (searchedEmployee == null)
+            {
+                ColorPrintLine("Not Employee Found", ConsoleColor.DarkRed);
+            }
+            else
+            {
+                searchedEmployee.PrintEmployeeData();
+            }
+            ColorPrintLine("Press any key to back main menu...", ConsoleColor.DarkGray);
+            Console.ReadKey();
+            MainMenu();
         }
     }
 }
