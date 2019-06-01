@@ -14,24 +14,21 @@ namespace Manage_Employees
     {
 
         public static Employees EmployeesList = new Employees();
+        public delegate void StatusChanger(Session.ProgramStatus status);
 
         static void Main(string[] args)
         {
+            StatusChanger statusChanger = new StatusChanger(Session.ChangeStatus);
+            Messages.ColorPrintLine("Im running program", ConsoleColor.Yellow);
             EmployeesList.CreateEmployeeAndAdd("Tadeusz", "Testowy", "testowy.tadek@tester.com", "tester");
+            EmployeesList.CreateEmployeeAndAdd("Tadeusz", "Testowy", "testowy@tester.com", "tester automatyczny");
             EmployeesList.CreateEmployeeAndAdd("Janusz", "Handlarz", "janusz@najlepsze-bmw.com.pl", "najlepszy handlarz");
-            MainMenu();
+            Thread.Sleep(2000);
+            Router();
         }
 
-        public static void MainMenu()
-        {
-            Console.Clear();
-            Session.Status = Session.ProgramStatus.MainMenu;
-            Messages.DisplayMainMenu();
-            Session.UserOption = Console.ReadKey();
-            Analyze();
-        }
 
-        public static void Analyze()
+        public static void Router()
         {
             Console.Clear();
             var option = Session.UserOption.Key;
@@ -48,13 +45,11 @@ namespace Manage_Employees
                             }
                             else
                             {
-                                MainMenu();
+                                Messages.MainMenu();
                             }
                             break;
                         case ConsoleKey.E:
                             Messages.PrintEmployeesList();
-                            Session.ReadOption();
-                            Analyze();
                             break;
                         case ConsoleKey.Escape:
                             Messages.ColorPrintLine("Thanks for using Application written by Sebastian Szypulski vel Sisa 2019", ConsoleColor.DarkCyan);
@@ -65,7 +60,7 @@ namespace Manage_Employees
                             if (Session.IsLogged())
                             {
                                 Session.Logout();
-                                MainMenu();
+                                Messages.MainMenu();
                             }
                             else
                             {
@@ -74,7 +69,7 @@ namespace Manage_Employees
                             
                             break;
                         default:
-                            MainMenu();
+                            Messages.MainMenu();
                             break;
                     }
                     break;
@@ -85,7 +80,7 @@ namespace Manage_Employees
                             Messages.SearchForm();
                             break;
                         case ConsoleKey.Escape:
-                            MainMenu();
+                            Messages.MainMenu();
                             break;
                         default:
                             Messages.PrintEmployeesList();
@@ -99,16 +94,15 @@ namespace Manage_Employees
 
                             break;
                         case ConsoleKey.Escape:
-                            MainMenu();
+                            Messages.MainMenu();
                             break;
                         default:
-                            EmployeesList.PrintEmployees();
-                            
+                            Messages.PrintEmployeesList();
                             break;
                     }
                     break;
                 default:
-                    MainMenu();
+                    Messages.MainMenu();
                     break;
             }
             

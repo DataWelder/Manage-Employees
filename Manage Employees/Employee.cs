@@ -17,11 +17,17 @@ namespace Manage_Employees
             public List<Operation> Operations { get; set; } = new List<Operation>();
             public enum ContractTypes { FullTime, PartTime, Contract };
 
+            public delegate void EventHandler(string message, ConsoleColor color);
+            public event EventHandler CreateInfo;
+
             private Employee (int id, string name, string surname, string workEmail, string position): base(name, surname)
             {
                 WorkEmail = workEmail;
                 Position = position;
                 Id = id;
+                CreateInfo += Messages.ColorPrintLine;
+                CreateInfo("Employee: " + GetFullName() + " created", ConsoleColor.Green);
+
             }
 
             public void PrintEmployeeData()
@@ -49,7 +55,7 @@ namespace Manage_Employees
             public static Employee CreateEmployee(int id,string name, string surname, string workEmail, string positon)
             {
                 Employee Employee = new Employee(id,name, surname, workEmail, positon);
-
+                
                 return Employee;
             }
 
