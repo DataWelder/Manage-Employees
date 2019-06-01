@@ -8,7 +8,7 @@ Academical project from Advanced Object Oriented Programming in C#
 - [X] 5. Fabryki Obiektów
 - [X] 6. Klasy Abstrakcyjne
 - [ ] 7. Przeciążanie operatorów
-- [ ] 8. Delegacje
-- [ ] 9. Zdarzenia
+- [X] 8. Delegacje
+- [X] 9. Zdarzenia
 - [ ] 10. Wyrażenia Lambda
 - [ ] 11. Linq to Object 
