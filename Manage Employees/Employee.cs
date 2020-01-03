@@ -13,9 +13,9 @@ namespace Manage_Employees
             public string WorkEmail { get; set; }
             public string Position { get; set; }
             private readonly int Id;
-            public static decimal HolidayBonus { get; set; } = 1000;
-            public List<Operation> Operations { get; set; } = new List<Operation>();
-            public enum ContractTypes { FullTime, PartTime, Contract };
+            //public static decimal HolidayBonus { get; set; } = 1000;
+            //public List<Operation> Operations { get; set; } = new List<Operation>();
+            //public enum ContractTypes { FullTime, PartTime, Contract };
 
             public delegate void EventHandler(string message, ConsoleColor color);
             public event EventHandler CreateInfo;

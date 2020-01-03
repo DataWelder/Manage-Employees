@@ -14,15 +14,13 @@ namespace Manage_Employees
     {
 
         public static Employees EmployeesList = new Employees();
-        public delegate void StatusChanger(Session.ProgramStatus status);
 
         static void Main(string[] args)
         {
-            StatusChanger statusChanger = new StatusChanger(Session.ChangeStatus);
-            Messages.ColorPrintLine("Im running program", ConsoleColor.Yellow);
+            
+            Messages.ColorPrintLine("loading program", ConsoleColor.Yellow);
             EmployeesList.CreateEmployeeAndAdd("Tadeusz", "Testowy", "testowy.tadek@tester.com", "tester");
-            EmployeesList.CreateEmployeeAndAdd("Tadeusz", "Testowy", "testowy@tester.com", "tester automatyczny");
-            EmployeesList.CreateEmployeeAndAdd("Janusz", "Handlarz", "janusz@najlepsze-bmw.com.pl", "najlepszy handlarz");
+            EmployeesList.CreateEmployeeAndAdd("Janusz", "Kowalski", "janusz@najlepsze-bmw.com.pl", "handlarz");
             Thread.Sleep(2000);
             Router();
         }
@@ -40,7 +38,7 @@ namespace Manage_Employees
                         case ConsoleKey.A:
                             if (Session.IsLogged())
                             {
-                                Session.Status = Session.ProgramStatus.Form;
+                                
                                 Messages.AddEmployeeForm();
                             }
                             else
@@ -52,8 +50,8 @@ namespace Manage_Employees
                             Messages.PrintEmployeesList();
                             break;
                         case ConsoleKey.Escape:
-                            Messages.ColorPrintLine("Thanks for using Application written by Sebastian Szypulski vel Sisa 2019", ConsoleColor.DarkCyan);
-                            Thread.Sleep(2000);
+                            Messages.ColorPrintLine("Thanks for using Application", ConsoleColor.DarkCyan);
+                            Thread.Sleep(1000);
                             Environment.Exit(1);
                             break;
                         case ConsoleKey.L:
